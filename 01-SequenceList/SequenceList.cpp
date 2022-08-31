@@ -33,6 +33,7 @@ bool ListDelete(SeqList& L, int i);
 int LocateElem(SeqList& L, ElemType e);
 
 bool Del_Min(SeqList& L, ElemType& value);
+void Reverse(SeqList& L);
 
 /*
 * 主函数
@@ -46,9 +47,12 @@ int main() {
 	int listLength = GetLength(L);
 	PrintList(L);
 	// 测试Del_Min
-	ElemType value;
-	Del_Min(L, value);
-	cout << value << endl;
+	//ElemType value;
+	//Del_Min(L, value);
+	//cout << value << endl;
+	//PrintList(L);
+	// 测试翻转
+	Reverse(L);
 	PrintList(L);
 
 	cout << "ENDING" << endl;
@@ -225,4 +229,17 @@ bool Del_Min(SeqList& L, ElemType& value) {
 	L.data[pos] = L.data[L.length - 1];	// 空出的位置由最后一个元素填补
 	L.length--;	// 表长度-1
 	return true;
+}
+
+/*
+* 顺序表：翻转
+* @param &L 顺序表L
+*/
+void Reverse(SeqList& L) {
+	ElemType temp;
+	for (int i = 0; i < L.length / 2; i++) {
+		temp = L.data[i];
+		L.data[i] = L.data[L.length - 1 - i];
+		L.data[L.length - 1 - i] = temp;
+	}
 }

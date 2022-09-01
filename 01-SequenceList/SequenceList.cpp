@@ -20,6 +20,7 @@ typedef struct {
 // 顺序表数据结构 动态分配
 typedef struct {
 	ElemType* data; // 指示动态分配数组的指针
+	int maxSize;	// 数组的最大容量
 	int length;     // 数组的当前个数
 }SeqList;           // 动态分配数组顺序表的类型定义
 
@@ -34,6 +35,7 @@ int LocateElem(SeqList& L, ElemType e);
 
 bool Del_Min(SeqList& L, ElemType& value);
 void Reverse(SeqList& L);
+void Del_ValueEqX(SeqList& L, ElemType x);//删除：所有值为x的数据元素
 
 /*
 * 主函数
@@ -69,6 +71,7 @@ void InitList(SeqList& L) {
 	if (!L.data) {
 		exit(OVERFLOW);             // 存储空间分配失败
 	}
+	L.maxSize = MaxSize;
 	L.length = 0;                   // 空表长度为0
 }
 
@@ -242,4 +245,51 @@ void Reverse(SeqList& L) {
 		L.data[i] = L.data[L.length - 1 - i];
 		L.data[L.length - 1 - i] = temp;
 	}
+}
+
+/*
+* 顺序表：删除：所有值为x的数据元素
+* @param &L 顺序表L
+* @param x value
+*/
+void Del_ValueEqX(SeqList& L, ElemType x) {
+	int k = 0;	// k记录值不等于x的元素个数
+	for (int i = 0; i < L.length; i++) {
+		if (L.data[i] != x) {
+			L.data[k] = L.data[i];
+			k++;
+		}
+	}
+	L.length = k;
+}
+
+/*
+* 顺序表：合并：将有序顺序表A与B合并为一个新的顺序表C
+* @param &L 顺序表L
+* @param A 有序顺序表A
+* @param B 有序顺序表B
+* @param &C 引用 有序顺序表C
+* @return boolean
+*/
+bool Merge(SeqList A, SeqList B, SeqList& C) {
+	if (A.length+B.length>C.maxSize) {
+		// 大于顺序表的最大长度则失败
+		return false;
+	}
+	int i = 0, j = 0, k = 0;
+	while (i<A.length&&i<B.length) {
+		// 循环比较
+		if (A.data[i] <= B.data[j])
+			C.data[k++] = A.data[i++];
+		else
+			C.data[k++] = B.data[j++];
+	}
+	// 比较剩余长度
+	while (i < A.length)
+		C.data[k++] = A.data[i++];
+	while (j < B.length)
+		C.data[k++] = B.data[j++];
+	// 设置C的实际长度
+	C.length = k;
+	return true;
 }

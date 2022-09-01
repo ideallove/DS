@@ -3,7 +3,6 @@
 *
 * @author ideallove
 * @since 2022-08-31
-* @update 2022-08-31
 */
 #include <iostream>
 #define MaxSize 100     // 定义线性表的最大长度

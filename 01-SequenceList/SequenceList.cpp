@@ -11,7 +11,7 @@ using namespace std;
 
 // 顺序表数据结构 静态分配
 typedef struct {
-	/* ElemType是数据结构的书上为了说明问题而用的一个词。它是element type（“元素的类型”）的简化体。*/
+	// ElemType是数据结构的书上为了说明问题而用的一个词。它是element type（“元素的类型”）的简化体。
 	ElemType data[MaxSize]; // 顺序表的元素
 	int length;             // 顺序表的当前长度
 }SqList;                    // 顺序表的类型定义

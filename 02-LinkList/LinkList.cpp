@@ -17,5 +17,5 @@ typedef struct LNode {  // 定义单链表结点类型
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    cout << "Hello World!" << endl;
 }
